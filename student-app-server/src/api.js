@@ -4,6 +4,9 @@ import getSchools, { createSchool, deleteSchool, getSchool, updateSchool } from 
 import { createAddress, deleteAddress, getAddressByParams, updateAddress } from "./db/address.js";
 import { createStudent, deleteStudent, getStudentByFrNameAndCnNumber, getStudentById, getStudents, updateStudent } from "./db/student.js";
 
+/**
+ * Register all the API's
+ */
 export default function registerAPI() {
 
   app.use(bodyParser.json());
