@@ -1,17 +1,29 @@
+//Routers  App.js
+
 import './App.css';
 import React from "react"
-import DisplaySchools from './components/DisplaySchools';
-import CreateSchool from './components/CreateSchool';
-import CreateStudent from './components/CreateStudent';
+import DisplayShools from './components/DisplaySchools';
+import DisplayStudents from './components/DisplayStudents';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Routes
+} from 'react-router-dom';
+
 
 function App() {
 
   return (
-    <div>
-      <CreateSchool />
-      <DisplaySchools />
-      <CreateStudent />
-    </div>
+    <>
+       <Router> 
+         <Routes>
+          <Route path='/school' element={<DisplayShools />} />
+          <Route path='/student' element={<DisplayStudents />} />
+           <Route path='/' element={<DisplayShools />} />
+        </Routes>
+      </Router> 
+    </>
   );
 }
 

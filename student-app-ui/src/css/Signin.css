@@ -1,0 +1,58 @@
+.sub-variant{
+    width: 20%;
+     padding:10px;
+     text-align: center;
+     margin-top: 60px;
+     margin-left:50px;
+     background-color: white;
+     border-radius: 5%;
+}
+#email{
+    padding:10px;
+    width: 80%;
+    border-top: none;
+    border-left:none;
+    border-right: none;
+    border-bottom: 2%;
+}
+#password{
+    padding:10px;
+    width: 80%;
+    border-top: none;
+    border-left:none;
+    border-right: none;
+    border-bottom: 2%;
+    margin-top: 5%;
+}
+.checked{
+     display: flex;
+     flex-direction: row;
+     margin-top: -5%;
+}
+#check1{
+      margin-top: 8%;
+      margin-left: 6%;
+}
+.btn{
+         width: 90%;
+         margin-top: -10%;
+}
+.account{
+        display: flex;
+        flex-direction: row;
+        margin-left: 5%;
+}
+#lii{
+    list-style: none;
+    margin-left: 45%;
+    margin-top: 10%;
+}
+a{
+   text-decoration: none;
+}
+#bbb{
+      margin-left: -2%;
+}
+#ddd{
+    margin-left: 1%;
+}

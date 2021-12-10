@@ -1,0 +1,101 @@
+/* .container {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sub-container {
+  width: 80%;
+  background-color: white;
+  text-align: center;
+  padding: 10px;
+  /* margin-top: -275px;
+  margin-left: 280px; */
+  border-radius: 3px;
+}
+.form {
+  margin-top: 6%;
+}
+.checkbox {
+  display: flex;
+  flex-direction: row;
+  margin-top: -8%;
+}
+#check {
+  margin-left: 6%;
+  margin-top: 9%;
+}
+#firstName {
+  padding: 10px;
+  width: 80%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2%;
+}
+
+#lastName {
+  padding: 10px;
+  width: 80%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2%;
+  margin-top: 2%;
+}
+#email {
+  padding: 10px;
+  width: 80%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2%;
+  margin-top: 2%;
+}
+#password {
+  padding: 10px;
+  width: 80%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1%;
+  margin-top: 2%;
+}
+#confirmPassword {
+  padding: 10px;
+  width: 80%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2%;
+  margin-top: 2%;
+}
+.li {
+  display: flex;
+  flex-direction: row;
+  margin-left: 5%;
+  margin-top: -1%;
+}
+#button1 {
+  margin-top: -11px;
+  width: 90%;
+}
+#list {
+  list-style: none;
+  margin-left: 20%;
+  margin-top: 8%;
+}
+a {
+  text-decoration: none;
+}
+#img {
+  margin-top: 5%;
+  margin-left: -75%;
+}
+#head {
+  margin-left: 2%;
+}
+#imgage {
+    width: 75%;
+    height: 435px;
+} */

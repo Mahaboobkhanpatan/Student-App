@@ -1,31 +1,14 @@
-.container {
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-  font-weight: 700;
-}
-.sub-container {
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  font-family: Arial, Helvetica, sans-serif;
-  font-style: italic;
-  font-display: 12px;
-  font-weight: bold;
-}
+
 .header {
   text-align: center;
-  font-size: 190%;
-  margin-top: 50px;
-  margin-bottom: 8%;
+  font-size: 24px;
   color: rgba(19, 177, 129, 0.945);
 }
 .sub-header {
-  font-size: 175%;
-  margin-top: 5%;
-  margin-bottom: 5%;
+  font-size: 20px;
   color: rgba(19, 177, 129, 0.945);
+  padding: 20px;
+  padding-bottom: 0px;
 }
 .subdivision {
   display: flex;
@@ -38,6 +21,7 @@
   border-radius: 7px;
   margin: 5px;
   outline: none;
+  width: 80%;
 }
 .button1 {
   background-color: rgba(134, 226, 198, 0.945);
@@ -83,9 +67,10 @@
   margin-left: 5px;
   margin-top: -5px;
   margin-bottom: 0px;
+  font-size: 14px;
 }
 #DoB {
-  padding: 6px 37px 6px 10px;
+  /* padding: 6px 37px 6px 10px; */
   border-radius: 7px;
   margin: 5px;
   outline: none;
@@ -95,4 +80,13 @@
   border-radius: 7px;
   margin: 5px;
   outline: none;
+}
+.field-group{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 15px;
+}
+.field{
+  width: 25%;
+  padding-bottom: 10px;
 }
