@@ -1,4 +1,3 @@
-
 .header {
   text-align: center;
   font-size: 24px;
@@ -25,8 +24,6 @@
 }
 .button1 {
   background-color: rgba(134, 226, 198, 0.945);
-  margin-top: 5%;
-  margin-left: 80px;
   font-size: 15px;
   padding: 5px 41px;
   color: rgb(29, 87, 34);
@@ -41,13 +38,15 @@
 }
 .button2 {
   background-color: rgba(134, 226, 198, 0.945);
-  margin: 0px;
-  margin-top: 5%;
   font-size: 15px;
-  padding: 5px 70px;
-  margin-left: 80px;
+  padding: 6.5px 71px;
   color: rgb(29, 87, 34);
   border-radius: 7px;
+}
+.buttons{
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 290px ;
 }
 
 .button2:hover {
@@ -90,3 +89,7 @@
   width: 25%;
   padding-bottom: 10px;
 }
+
+
+
+
