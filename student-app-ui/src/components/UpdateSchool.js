@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import axios from "axios";
 
+/**
+ * Update School component
+ * @param {*} props 
+ * @returns 
+ */
 export default function UpdateSchool(props) {
 
     const [userData, setuserData] = useState({
