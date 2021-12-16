@@ -47,7 +47,7 @@
 .buttons{
   display: flex;
   justify-content: space-between;
-  margin: 10px 290px ;
+  margin: 10px 290px 25px;
 }
 
 .button2:hover {
@@ -60,6 +60,7 @@
 .success {
   color: green;
   margin-bottom: 2px;
+  text-align: center;
 }
 .error_msg {
   color: red;

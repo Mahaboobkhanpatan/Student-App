@@ -90,7 +90,7 @@ export default function DisplayStudents() {
                 </tbody>
             </table>
             <div>
-                {dataFilter !== null ? <UpdateStudent data={dataFilter} students={getStudents}/> : ""}
+                {dataFilter !== null ? <UpdateStudent data={dataFilter} clear={setdataFilter} students={getStudents}/> : ""}
             </div>
         </div>
     );

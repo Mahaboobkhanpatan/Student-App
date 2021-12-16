@@ -54,12 +54,13 @@ input:hover {
 .btns{
   display: flex;
   justify-content: space-between;
-  margin:10px 420px;
+  margin:10px 420px 25px;
 }
 
 .success {
   color: green;
   margin-bottom: 2px;
+  text-align: center;
 }
 
 
