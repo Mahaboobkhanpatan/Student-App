@@ -1,14 +1,15 @@
 import react, { useState } from "react";
+import axios from "axios";
 import '../css/Student.css';
 
 export default function CreateStudent() {
     const [student, setStudent] = useState({
-        name: null,
+        firstName: null,
         lastName: null,
         gender: null,
-        DoB: null,
+        dob: null,
         contactNumber: null,
-        houseno: null,
+        houseNo: null,
         street: null,
         town: null,
         district: null,
@@ -16,6 +17,7 @@ export default function CreateStudent() {
         country: null,
         isRegistrationOk: false
     })
+    console.log(student);
 
     function handleChange(event) {
         const id = event.target.id;
@@ -27,7 +29,7 @@ export default function CreateStudent() {
     }
     function handleCreateStudent() {
         let isRegistrationOk = true;
-        if (!student.name) {
+        if (!student.firstName) {
             isRegistrationOk = false;
         } else {
             isRegistrationOk = true;
@@ -36,7 +38,7 @@ export default function CreateStudent() {
         } else {
             isRegistrationOk = true;
         }
-        if (!student.DoB) {
+        if (!student.dob) {
             isRegistrationOk = false;
         } else {
             isRegistrationOk = true;
@@ -46,7 +48,7 @@ export default function CreateStudent() {
         } else {
             isRegistrationOk = true;
         }
-        if (!student.houseno) {
+        if (!student.houseNo) {
             isRegistrationOk = false;
         } else {
             isRegistrationOk = true;
@@ -71,20 +73,37 @@ export default function CreateStudent() {
         } else {
             isRegistrationOk = true;
         }
+        axios.post("http://localhost:5000/student/create", {
+            "firstName": student.firstName,
+            "lastName": student.lastName,
+            "dob": student.dob,
+            "gender": student.gender,
+            "contactNumber": student.contactNumber,
+            "address": {
+                "houseNo": student.houseNo,
+                "street": student.street,
+                "town": student.town,
+                "district": student.district,
+                "state": student.state,
+                "country": student.country
+            }
+        }).then(result => {
+            setStudent({ ...student, isRegistrationOk: isRegistrationOk });
+        }).catch(error => {
+            alert("Error handled")
+        })
 
-        setStudent({ ...student, isRegistrationOk: isRegistrationOk });
-        console.log(student)
 
     }
 
     function handleReset() {
         setStudent({
-            name: "",
+            firstName: "",
             lastName: "",
             gender: "",
-            DoB: "",
+            dob: "",
             contactNumber: "",
-            houseno: "",
+            houseNo: "",
             street: "",
             town: "",
             district: "",
@@ -104,22 +123,22 @@ export default function CreateStudent() {
                     <form autocomplete="off" onSubmit={(event) => event.preventDefault()}>
                         <div className="field-group">
                             <div className="field">
-                                <div><input type="text" className="information" id="name" style={student.name === "" ? { borderColor: "red" } : {}} placeholder="Enter name*" onChange={handleChange} value={student.name} ></input></div>
-                                <div> {student.name === "" ? <p className="error_msg">name is a mandatory field</p> : ""}</div>
+                                <div><input type="text" className="information" id="firstName" style={student.firstName === "" ? { borderColor: "red" } : {}} placeholder="Enter name*" onChange={handleChange} value={student.firstName} ></input></div>
+                                <div> {student.firstName === "" ? <p className="error_msg">name is a mandatory field</p> : ""}</div>
                             </div>
                             <div className="field">
                                 <input type="lastName" className="information" id="lastName" onChange={handleChange} value={student.lastName} placeholder="Enter lastname"></input>
                             </div>
                             <div className="field">
-                                <select className="information" id="opt">
-                                    <option value="male" id="male" onChange={handleChange} value={student.gender} style={student.gender === "" ? { borderColor: "red" } : {}} >m</option>
-                                    <option value="female" id="female" onChange={handleChange} value={student.gender} style={student.gender === "" ? { borderColor: "red" } : {}} >f</option>
+                                <select className="information" id="gender" onChange={handleChange}>
+                                    <option value="m"  selected={student.gender==='m'} style={student.gender === "" ? { borderColor: "red" } : {}} >m</option>
+                                    <option value="f"  selected={student.gender==='m'} style={student.gender === "" ? { borderColor: "red" } : {}} >f</option>
                                 </select>
                             </div>
 
                             <div className="field">
-                                <input type="date" className="information" id="DoB" style={student.DoB == "" ? { borderColor: "red" } : {}} onChange={handleChange} value={student.DoB} ></input>
-                                <div>{student.DoB === "" ? <p className="error_msg">select DoB is mandatory field</p> : ""}</div></div>
+                                <input type="date" className="information" id="dob" style={student.dob == "" ? { borderColor: "red" } : {}} onChange={handleChange} value={student.dob} ></input>
+                                <div>{student.dob === "" ? <p className="error_msg">select DoB is mandatory field</p> : ""}</div></div>
                             <div className="field">
                                 <input type="number" className="information" id="contactNumber" style={student.contactNumber === "" ? { borderColor: "red" } : {}} onChange={handleChange} value={student.contactNumber} placeholder="Enter number*" ></input>
                                 <div>{student.contactNumber === "" ? <span className="error_msg" id="contact">contactNumber is a mandatory field</span> : ""}</div>
@@ -129,8 +148,8 @@ export default function CreateStudent() {
                         <h2 className="sub-header">Address Info</h2>
                         <div className="field-group">
                             <div className="field">
-                                <input type="house" className="information" style={student.houseno === "" ? { borderColor: "red" } : {}} placeholder="Housenoex:1/117*" id="houseno" onChange={handleChange} value={student.houseno}></input>
-                                <div>{student.houseno === "" ? <span className="error_msg" id="house" >houseNo is a mandatory field</span> : ""} </div>
+                                <input type="house" className="information" style={student.houseNo === "" ? { borderColor: "red" } : {}} placeholder="Housenoex:1/117*" id="houseNo" onChange={handleChange} value={student.houseNo}></input>
+                                <div>{student.houseNo === "" ? <span className="error_msg" id="house" >houseNo is a mandatory field</span> : ""} </div>
                             </div>
                             <div className="field">
                                 <input type="Street" className="information" placeholder="Enter Your Street Name" id="street" onChange={handleChange} value={student.street}></input>
