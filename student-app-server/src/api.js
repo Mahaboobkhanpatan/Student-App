@@ -189,5 +189,32 @@ export default function registerAPI() {
       
     })
   })
+  app.post("/signup/student",(req,res)=>{
+    const body=req.body;
+    console.log(body);
+    if(body.EMAIL!="" && body.PASSWORD!=""){
+    getData(body,(result)=>{
+        if(!result){
+            signup(body,(signup)=>{
+                res.send(signup?{message:"registered successfully"}:{message:"unsuccessfull"})
+            })
+        }
+        else{
+            res.send("User already exist")
+        }
+    })
+  }
+  else{
+    res.send("Email and Password are mandetory");
+  }
+})
+  
+app.post("/signin/student",(req,res)=>{
+  const body =req.body;
+  console.log(body)
+  getData(body,(result)=>{
+    res.send(result? {message:"signin Success"}:{message:"Singnup first"} );
+  })
+})
 
 }
