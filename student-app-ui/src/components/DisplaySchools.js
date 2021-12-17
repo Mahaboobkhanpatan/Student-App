@@ -2,14 +2,21 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import UpdateSchool from './UpdateSchool';
 import CreateSchool from './CreateSchool';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function DisplaySchools() {
 
+    let navigate = useNavigate();
+
     const [schools, setSchools] = useState([]);
-    const [dataFilter, setdataFilter] = useState(null);
+    const [dataFilter, setdataFilter] = useState(null);   
 
     useEffect(() => {
+
+        if(!localStorage.getItem("SIGNIN"))
+            navigate("/signin")
+
         getSchools();
     }, []);
 

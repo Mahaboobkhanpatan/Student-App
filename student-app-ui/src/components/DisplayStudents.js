@@ -2,13 +2,19 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import UpdateStudent from './UpdateStudent';
 import CreateStudent from './CreateStudent';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function DisplayStudents() {
+
+    let navigate = useNavigate();
+
     const [student, setStudent] = useState([]);
     const [dataFilter, setdataFilter] = useState(null);
 
     useEffect(() => {
+        if(!localStorage.getItem("SIGNIN"))
+            navigate("/signin")
         getStudents();
     }, []);
 

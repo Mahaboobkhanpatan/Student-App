@@ -1,6 +1,6 @@
 import { app } from "../index.js";
 import bodyParser from "body-parser";
-import getSchools, { createSchool, deleteSchool, getSchool, updateSchool } from "./db/school.js";
+import getSchools, { createSchool, deleteSchool, getSchool, updateSchool, getData, signup } from "./db/school.js";
 import { createAddress, deleteAddress, getAddressByParams, updateAddress } from "./db/address.js";
 import { createStudent, deleteStudent, getStudentByFrNameAndCnNumber, getStudentById, getStudents, updateStudent } from "./db/student.js";
 
@@ -189,36 +189,34 @@ export default function registerAPI() {
 
     })
   })
-  app.post("/signup/student", (req, res) => {
+  app.post("/signup", (req, res) => {
     const body = req.body;
-    console.log(body);
-    if (body.EMAIL != "" && body.PASSWORD != "") {
+    if (body.email != "" && body.password != "") {
       getData(body, (result) => {
         if (!result) {
           signup(body, (signup) => {
-            res.send(signup ? { message: "registered successfully" } : { message: "unsuccessfull" })
+            res.send(signup ? { status: true, message: "Registered successfully" } : { status: false, message: "Unsuccessfull" })
           })
         }
         else {
-          res.send("User already exist")
+          res.send({ message: "User already exist", status: false })
         }
       })
     }
     else {
-      res.send("Email and Password are mandetory");
+      res.send({ status: false, message: "Email and Password are mandetory" });
     }
   })
 
-  app.post("/signin/student", (req, res) => {
+  app.post("/signin", (req, res) => {
     const body = req.body;
-    console.log(body)
     if (body.email != "" && body.password != "") {
       getData(body, (result) => {
-        res.send(result ? { message: "signin Success" } : { message: "Singnup first" });
+        res.send(result ? { status: true, message: "Signin Success" } : { status: false, message: "No data found, Please signup." });
       })
     }
     else {
-res.send({message:"Password And Email are mandatory"})
+      res.send({ message: "Password and Email are mandatory", status: false })
     }
   })
 

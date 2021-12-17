@@ -76,6 +76,7 @@ export default function CreateSchool() {
                 "country": userData.country
             }
         }).then(result => {
+            alert("successful")
             setuserData({...userData, isRegistrationOk: isRegistrationOk});
         }).catch(error => {
             alert("Error handled")

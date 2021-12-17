@@ -1,17 +1,23 @@
+import axios from "axios";
 import React, { useState } from "react";
-// import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import '../css/Signin.css';
 
-export default function Singin() {
+export default function Singin(props) {
+    
+    let navigate = useNavigate();
+
     const [set, setField] = useState({
         email: undefined,
         password: null
     })
+
     function handleChange(event) {
         const id = event.target.id;
         const value = event.target.value;
         setField({ ...set, [id]: value })
     }
+
     function handleSing() {
         let isLoginSuccess = true;
         if (!set.email) {
@@ -24,7 +30,25 @@ export default function Singin() {
         } else {
             isLoginSuccess = true;
         }
-        setField({ ...set, isLoginSuccess: isLoginSuccess })
+
+        if (!isLoginSuccess) {
+            alert("failed")
+            return;
+        }
+
+        axios.post("http://localhost:5000/signin", { email: set.email, password: set.password })
+        .then(result => {
+            if (result.data.status) {
+                localStorage.setItem("SIGNIN", true);                
+                navigate("/student")
+                setField({ ...set, isLoginSuccess: isLoginSuccess })
+            } else {
+                alert("failed")
+            }
+
+        }).catch(error => {
+            alert("Error handled")
+        })
     }
 
     return (
@@ -33,7 +57,7 @@ export default function Singin() {
 
                 <div><h2 className="heading">Student Login</h2></div>
                 <div><hr></hr></div>
-                <form autoComplete="off">
+                <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
                     <div className="form1">
                         <div>
                             <input type="email" id="email" className="input" placeholder="Email" value={set.email} onChange={handleChange}></input>
@@ -46,14 +70,14 @@ export default function Singin() {
                     <div className="checked">
                         <input type="checkbox" id="check1" ></input>
                         <div id="ddd">
-                            <h5 >Remember Me</h5>
+                            <h5 > Remember Me </h5>
                         </div>
                     </div>
                     <button className="btn" onClick={handleSing}>Sing In</button>
                     <div className="account">
                         <h5 id="bbb">No account yet?</h5>
                         <li id="lii">
-                            {/* <Link to="/SingUp">SingUp</Link> */}
+                            <Link to="/signup">Signup</Link>
                         </li>
                     </div>
                 </form>

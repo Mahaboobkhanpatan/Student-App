@@ -1,10 +1,14 @@
+import axios from "axios";
 import React, { useState } from "react";
 import '../css/Signup.css';
-// import '../css/Signin.css';
+import '../css/Signin.css';
 
-// import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Singup() {
+
+    let navigate = useNavigate();
+
     const [singUp, setSingUp] = useState({
         firstName: undefined,
         lastName: undefined,
@@ -50,8 +54,23 @@ export default function Singup() {
         } else if (singUp.confirmPassword > 1 && singUp.confirmPassword == singUp.password) {
             isSingUpSuccess = true;
         }
-        setSingUp({ ...singUp, isSingUpSuccess: isSingUpSuccess })
+        if(!isSingUpSuccess){
+            alert("failed")
+            return;
+        }
 
+        // setSingUp({ ...singUp, isSingUpSuccess: isSingUpSuccess })
+        axios.post("http://localhost:5000/signup", {email: singUp.email, password: singUp.password}
+        ).then(result => {
+            if(result.data.status){
+                navigate("/student")
+                setSingUp({ ...singUp, isSingUpSuccess: isSingUpSuccess })
+            } else {
+                alert("failed");
+            }
+        }).catch(error => {
+            alert("Error handled")
+        })
     }
 
     return (
@@ -62,7 +81,7 @@ export default function Singup() {
                     {/* <div><img src="" alt="suhail" id="img"></img></div> */}
                     <div><h2 className="heading">Student Manager</h2></div>
                     <div><hr></hr></div>
-                    <form autoComplete="of">
+                    <form autoComplete="off" onSubmit={(event)=>event.preventDefault()}>
                         <div className="form">
                             <div className="padds">
                                 <div>
@@ -98,7 +117,7 @@ export default function Singup() {
                             <div className="li">
                                 <h5 id="aaa">Already have an account ?</h5>
                                 <li id="list">
-                                    {/* <Link to="/SingIn">SingIn</Link> */}
+                                    <Link to="/signin">Signin</Link>
                                 </li> </div></div>
                     </form>
                 </div>
