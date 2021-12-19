@@ -118,3 +118,9 @@ td {
 } */
 
 
+.countDown{
+  margin-left:92%;
+  margin-top:0%;
+
+  display:flex;
+}

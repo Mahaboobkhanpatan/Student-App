@@ -18,7 +18,7 @@ export default function CreateSchool() {
 
     function handleChange(event) {
         const name = event.target.id;
-        const value = event.target.value;        
+        const value = event.target.value;
         console.log(name);
         console.log(value);
         setuserData({ ...userData, [name]: value });
@@ -29,43 +29,43 @@ export default function CreateSchool() {
         let isRegistrationOk = true;
 
         if (!userData.name) {
-            isRegistrationOk = false;            
+            isRegistrationOk = false;
         }
         else {
-            isRegistrationOk = true;            
+            isRegistrationOk = true;
         }
         if (!userData.houseNo) {
-            isRegistrationOk = false;            
+            isRegistrationOk = false;
         }
         else {
-            isRegistrationOk = true;            
+            isRegistrationOk = true;
         }
         if (!userData.town) {
-            isRegistrationOk = false;            
+            isRegistrationOk = false;
         }
         else {
-            isRegistrationOk = true;            
+            isRegistrationOk = true;
         }
         if (!userData.district) {
-            isRegistrationOk = false;            
+            isRegistrationOk = false;
         }
         else {
-            isRegistrationOk = true;            
+            isRegistrationOk = true;
         }
         if (!userData.state) {
-            isRegistrationOk = false;            
+            isRegistrationOk = false;
         }
         else {
-            isRegistrationOk = true;            
+            isRegistrationOk = true;
         }
         if (!userData.country) {
-            isRegistrationOk = false;           
+            isRegistrationOk = false;
         }
         else {
-            isRegistrationOk = true;            
-        } 
+            isRegistrationOk = true;
+        }
         // setuserData({...userData, isRegistrationOk: isRegistrationOk})   
-        axios.post("http://localhost:5000/school/create", {            
+        axios.post("http://localhost:5000/school/create", {
             "name": userData.name,
             "address": {
                 "houseNo": userData.houseNo,
@@ -77,7 +77,7 @@ export default function CreateSchool() {
             }
         }).then(result => {
             alert("successful")
-            setuserData({...userData, isRegistrationOk: isRegistrationOk});
+            setuserData({ ...userData, isRegistrationOk: isRegistrationOk });
         }).catch(error => {
             alert("Error handled")
         })
@@ -94,9 +94,9 @@ export default function CreateSchool() {
             town: '',
             district: '',
             state: '',
-            country: '' ,
-            isRegistrationOk: false   
-        });        
+            country: '',
+            isRegistrationOk: false
+        });
     }
 
 
@@ -106,7 +106,7 @@ export default function CreateSchool() {
                 <div className="sub-container">
                     <div className="registration_form">
                         <h1 className="header">Create your school</h1>
-                        <form autoComplete="off">
+                        <form autocomplete="off" onSubmit={(event) => event.preventDefault()}>
                             <div className='field-group2'>
                                 <div className='fields'>
                                     <input type="Name" className="input" style={userData.name === "" ? { borderColor: "red" } : {}} placeholder="Enter Your School Name*" id="name" value={userData.name} onChange={handleChange}></input><br />
@@ -137,12 +137,12 @@ export default function CreateSchool() {
                                 </div>
                             </div>
                             <div className='btns'>
-                            <div>
-                            <button className="btn1" type="button" onClick={handleCreate}>Create</button>
-                            </div>
-                            <div>
-                            <button className="btn2" type="button" onClick={handleReset}>Reset</button>
-                            </div>
+                                <div>
+                                    <button className="btn1" type="button" onClick={handleCreate}>Create</button>
+                                </div>
+                                <div>
+                                    <button className="btn2" type="button" onClick={handleReset}>Reset</button>
+                                </div>
                             </div>
                             {userData.isRegistrationOk && <h4 id="success_msg" className="success"><span id="success" className="success"> <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="green" className="bi bi-check2-circle" viewBox="0 0 16 16">
                                 <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z" />
