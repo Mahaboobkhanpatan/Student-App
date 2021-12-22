@@ -57,3 +57,23 @@ export default function getSchools(callbackFn) {
         callbackFn(error ? [] : result);
     });
 }
+
+export function signup(signObj, callBkFn) {
+    const connection = getConnection();
+    connection.connect();
+    connection.query(`INSERT INTO USER (EMAIL,PASSWORD) VALUES('${signObj.email}',${signObj.password})`, (error, result) => {
+        if (error) throw error;
+        connection.end();
+        callBkFn(result ? true : NULL);
+    })
+}
+
+export function getData(signObj, callBkFn) {
+    const connection = getConnection();
+    connection.connect();
+    connection.query(`SELECT * FROM USER WHERE EMAIL='${signObj.email}' AND PASSWORD='${signObj.password}'`, (error, result) => {
+        if (error) throw error;
+        connection.end();
+        callBkFn(result[0] ? result[0] : null);
+    })
+}

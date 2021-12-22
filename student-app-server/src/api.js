@@ -1,6 +1,6 @@
 import { app } from "../index.js";
 import bodyParser from "body-parser";
-import getSchools, { createSchool, deleteSchool, getSchool, updateSchool } from "./db/school.js";
+import getSchools, { createSchool, deleteSchool, getSchool, updateSchool, getData, signup } from "./db/school.js";
 import { createAddress, deleteAddress, getAddressByParams, updateAddress } from "./db/address.js";
 import { createStudent, deleteStudent, getStudentByFrNameAndCnNumber, getStudentById, getStudents, updateStudent } from "./db/student.js";
 
@@ -102,7 +102,7 @@ export default function registerAPI() {
     getStudents((students) => {
       const results = students.map(student => {
         return {
-          id: student.ID, firstName: student.FIRSTNAME, lastName: student.LASTNAME, contactNumber: student.CONTACTNUMBER, isAdmin: student.ISADMIN,
+          id: student.ID, firstName: student.FIRSTNAME, lastName: student.LASTNAME, gender: student.GENDER, contactNumber: student.CONTACTNUMBER, isAdmin: student.ISADMIN,
           school: { id: student.ID, name: student.NAME },
           address: { houseNo: student.HOUSENO, street: student.STREET, town: student.TOWN, district: student.DISTRICT, state: student.STATE, country: student.COUNTRY, is_school_address: student.IS_SCHOOL_ADDRESS }
         }
@@ -118,10 +118,10 @@ export default function registerAPI() {
         id: student.ID, firstName: student.FIRSTNAME, lastName: student.LASTNAME, contactNumber: student.CONTACTNUMBER, isAdmin: student.ISADMIN,
         school: { id: student.ID, name: student.NAME },
         address: { houseNo: student.HOUSENO, street: student.STREET, town: student.TOWN, district: student.DISTRICT, state: student.STATE, country: student.COUNTRY, is_school_address: student.IS_SCHOOL_ADDRESS }
-      } : {'message': "Student not found" };
+      } : { 'message': "Student not found" };
       res.send(result);
     })
-  })  
+  })
 
   app.delete("/student/delete/:id", (req, res) => {
     const id = req.params.id;
@@ -161,7 +161,7 @@ export default function registerAPI() {
         })
       }
       else {
-        res.send({message: "Student already exists"})
+        res.send({ message: "Student already exists" })
       }
     })
   })
@@ -170,7 +170,7 @@ export default function registerAPI() {
     const body = req.body;
     console.log(body);
     getStudentByFrNameAndCnNumber(body, (student) => {
-      if(student){
+      if (student) {
         updateStudent(body, (result) => {
           console.log(result);
           body.address.addressid = student.ADDRESSID;
@@ -186,8 +186,38 @@ export default function registerAPI() {
       } else {
         res.send({ message: "Student not found" })
       }
-      
+
     })
+  })
+  app.post("/signup", (req, res) => {
+    const body = req.body;
+    if (body.email != "" && body.password != "") {
+      getData(body, (result) => {
+        if (!result) {
+          signup(body, (signup) => {
+            res.send(signup ? { status: true, message: "Registered successfully" } : { status: false, message: "Unsuccessfull" })
+          })
+        }
+        else {
+          res.send({ message: "User already exist", status: false })
+        }
+      })
+    }
+    else {
+      res.send({ status: false, message: "Email and Password are mandetory" });
+    }
+  })
+
+  app.post("/signin", (req, res) => {
+    const body = req.body;
+    if (body.email != "" && body.password != "") {
+      getData(body, (result) => {
+        res.send(result ? { status: true, message: "Signin Success" } : { status: false, message: "No data found, Please signup." });
+      })
+    }
+    else {
+      res.send({ message: "Password and Email are mandatory", status: false })
+    }
   })
 
 }

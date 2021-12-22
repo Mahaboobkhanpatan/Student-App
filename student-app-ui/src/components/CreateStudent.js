@@ -1,14 +1,15 @@
 import react, { useState } from "react";
+import axios from "axios";
 import '../css/Student.css';
 
 export default function CreateStudent() {
     const [student, setStudent] = useState({
-        name: null,
+        firstName: null,
         lastName: null,
         gender: null,
-        DoB: null,
+        dob: null,
         contactNumber: null,
-        houseno: null,
+        houseNo: null,
         street: null,
         town: null,
         district: null,
@@ -16,6 +17,7 @@ export default function CreateStudent() {
         country: null,
         isRegistrationOk: false
     })
+    console.log(student);
 
     function handleChange(event) {
         const id = event.target.id;
@@ -27,7 +29,7 @@ export default function CreateStudent() {
     }
     function handleCreateStudent() {
         let isRegistrationOk = true;
-        if (!student.name) {
+        if (!student.firstName) {
             isRegistrationOk = false;
         } else {
             isRegistrationOk = true;
@@ -36,7 +38,7 @@ export default function CreateStudent() {
         } else {
             isRegistrationOk = true;
         }
-        if (!student.DoB) {
+        if (!student.dob) {
             isRegistrationOk = false;
         } else {
             isRegistrationOk = true;
@@ -46,7 +48,7 @@ export default function CreateStudent() {
         } else {
             isRegistrationOk = true;
         }
-        if (!student.houseno) {
+        if (!student.houseNo) {
             isRegistrationOk = false;
         } else {
             isRegistrationOk = true;
@@ -71,20 +73,37 @@ export default function CreateStudent() {
         } else {
             isRegistrationOk = true;
         }
+        axios.post("http://localhost:5000/student/create", {
+            "firstName": student.firstName,
+            "lastName": student.lastName,
+            "dob": student.dob,
+            "gender": student.gender,
+            "contactNumber": student.contactNumber,
+            "address": {
+                "houseNo": student.houseNo,
+                "street": student.street,
+                "town": student.town,
+                "district": student.district,
+                "state": student.state,
+                "country": student.country
+            }
+        }).then(result => {
+            setStudent({ ...student, isRegistrationOk: isRegistrationOk });
+        }).catch(error => {
+            alert("Error handled")
+        })
 
-        setStudent({ ...student, isRegistrationOk: isRegistrationOk });
-        console.log(student)
 
     }
 
     function handleReset() {
         setStudent({
-            name: "",
+            firstName: "",
             lastName: "",
             gender: "",
-            DoB: "",
+            dob: "",
             contactNumber: "",
-            houseno: "",
+            houseNo: "",
             street: "",
             town: "",
             district: "",
@@ -103,42 +122,67 @@ export default function CreateStudent() {
                     <h2 className="sub-header">Student Info</h2>
                     <form autocomplete="off" onSubmit={(event) => event.preventDefault()}>
                         <div className="field-group">
-                            <div className="field"> 
-                                <div><input type="text" className="information" id="name" style={student.name === "" ? { borderColor: "red" } : {}} placeholder="Enter name*" onChange={handleChange} value={student.name} ></input></div>
-                                <div> {student.name === "" ? <p className="error_msg">name is a mandatory field</p> : ""}</div>
+                            <div className="field">
+                                <div><input type="text" className="information" id="firstName" style={student.firstName === "" ? { borderColor: "red" } : {}} placeholder="Enter name*" onChange={handleChange} value={student.firstName} ></input></div>
+                                <div> {student.firstName === "" ? <p className="error_msg">name is a mandatory field</p> : ""}</div>
                             </div>
                             <div className="field">
                                 <input type="lastName" className="information" id="lastName" onChange={handleChange} value={student.lastName} placeholder="Enter lastname"></input>
                             </div>
-                            <div className="field"><select className="information" id="opt">
-                                <option value="male" id="male" onChange={handleChange} value={student.gender} style={student.gender === "" ? { borderColor: "red" } : {}} >male</option>
-                                <option value="female" id="female" onChange={handleChange} value={student.gender} style={student.gender === "" ? { borderColor: "red" } : {}} >female</option>
-                            </select>
-                            </div>                        
-                    
-                            <div className="field"> <input type="date" className="information" id="DoB" style={student.DoB == "" ? { borderColor: "red" } : {}} onChange={handleChange} value={student.DoB} ></input>
-                                <div>{student.DoB === "" ? <p className="error_msg">select DoB is mandatory field</p> : ""}</div></div>
-                            <div className="field">  <input type="number" className="information" id="contactNumber" style={student.contactNumber === "" ? { borderColor: "red" } : {}} onChange={handleChange} value={student.contactNumber} placeholder="Enter number*" ></input>
+                            <div className="field">
+                                <select className="information" id="gender" onChange={handleChange}>
+                                    <option value="m"  selected={student.gender==='m'} style={student.gender === "" ? { borderColor: "red" } : {}} >m</option>
+                                    <option value="f"  selected={student.gender==='m'} style={student.gender === "" ? { borderColor: "red" } : {}} >f</option>
+                                </select>
+                            </div>
+
+                            <div className="field">
+                                <input type="date" className="information" id="dob" style={student.dob == "" ? { borderColor: "red" } : {}} onChange={handleChange} value={student.dob} ></input>
+                                <div>{student.dob === "" ? <p className="error_msg">select DoB is mandatory field</p> : ""}</div></div>
+                            <div className="field">
+                                <input type="number" className="information" id="contactNumber" style={student.contactNumber === "" ? { borderColor: "red" } : {}} onChange={handleChange} value={student.contactNumber} placeholder="Enter number*" ></input>
                                 <div>{student.contactNumber === "" ? <span className="error_msg" id="contact">contactNumber is a mandatory field</span> : ""}</div>
-                        </div>
+                            </div>
                         </div>
 
                         <h2 className="sub-header">Address Info</h2>
-                        <div >
-                            <div>  <input type="house" className="information" style={student.houseno === "" ? { borderColor: "red" } : {}} placeholder="Housenoex:1/117*" id="houseno" onChange={handleChange} value={student.houseno}></input>
-                                <div>{student.houseno === "" ? <span className="error_msg" id="house" >houseNo is a mandatory field</span> : ""} </div></div>
-                            <div> <input type="Street" className="information" placeholder="Enter Your Street Name" id="street" onChange={handleChange} value={student.street}></input></div>
-                            <div><input type="town" className="information" style={student.town === "" ? { borderColor: "red" } : {}} placeholder="Enter Your Town*" id="town" onChange={handleChange} value={student.town}></input>
-                                <div>{student.town === "" ? <span className="error-msg" className="error_msg">Town is a mandatory field</span> : ""}</div></div></div>
-                        <div >
-                            <div> <input type="district" className="information" style={student.district === "" ? { borderColor: "red" } : {}} placeholder="Enter Your District*" id="district" onChange={handleChange} value={student.district}></input>                            <div>{student.district === "" ? <span className="error_msg">district is a mandatory field</span> : ""}</div></div>
-                            <div>  <input type="state" className="information" style={student.state === "" ? { borderColor: "red" } : {}} placeholder="Enter State*" id="state" onChange={handleChange} value={student.state}></input>
-                                <div>{student.state === "" ? <span className="error_msg">state is a mandatory field</span> : ""}</div></div>
-                            <div>  <input type="country" className="information" style={student.country === "" ? { borderColor: "red" } : {}} placeholder="Enter Your Country*" id="country" onChange={handleChange} value={student.country}></input>
-                                <div>{student.country === "" ? <span className="error_msg">country is a mandatory field</span> : ""}</div></div></div>
-                        < div >
-                            <button className="button1" onClick={handleCreateStudent}>Create Student</button>
-                            <button className="button2" onClick={handleReset}>Reset</button></div>
+                        <div className="field-group">
+                            <div className="field">
+                                <input type="house" className="information" style={student.houseNo === "" ? { borderColor: "red" } : {}} placeholder="Housenoex:1/117*" id="houseNo" onChange={handleChange} value={student.houseNo}></input>
+                                <div>{student.houseNo === "" ? <span className="error_msg" id="house" >houseNo is a mandatory field</span> : ""} </div>
+                            </div>
+                            <div className="field">
+                                <input type="Street" className="information" placeholder="Enter Your Street Name" id="street" onChange={handleChange} value={student.street}></input>
+                            </div>
+                            <div className="field">
+                                <input type="town" className="information" style={student.town === "" ? { borderColor: "red" } : {}} placeholder="Enter Your Town*" id="town" onChange={handleChange} value={student.town}></input>
+                                <div>{student.town === "" ? <span className="error-msg" className="error_msg">Town is a mandatory field</span> : ""}</div>
+                            </div>
+
+
+                            <div className="field">
+                                <input type="district" className="information" style={student.district === "" ? { borderColor: "red" } : {}} placeholder="Enter Your District*" id="district" onChange={handleChange} value={student.district}></input>
+                                <div>{student.district === "" ? <span className="error_msg">district is a mandatory field</span> : ""}</div>
+                            </div>
+                            <div className="field">
+                                <input type="state" className="information" style={student.state === "" ? { borderColor: "red" } : {}} placeholder="Enter State*" id="state" onChange={handleChange} value={student.state}></input>
+                                <div>{student.state === "" ? <span className="error_msg">state is a mandatory field</span> : ""}</div>
+                            </div>
+                            <div className="field">
+                                <input type="country" className="information" style={student.country === "" ? { borderColor: "red" } : {}} placeholder="Enter Your Country*" id="country" onChange={handleChange} value={student.country}></input>
+                                <div>{student.country === "" ? <span className="error_msg">country is a mandatory field</span> : ""}</div>
+                            </div>
+                        </div>
+
+                        <div className="buttons">
+                            <div>
+                                <button className="button1" onClick={handleCreateStudent}>Create Student</button>
+                            </div>
+                            <div>
+                                <button className="button2" id="button" onClick={handleReset}>Reset</button>
+                            </div>
+                        </div>
+
                         {student.isRegistrationOk && <h4 id="success_msg" className="success"><span id="success" className="success"> <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="green" className="bi bi-check2-circle" viewBox="0 0 16 16">
                             <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z" />
                             <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z" />
