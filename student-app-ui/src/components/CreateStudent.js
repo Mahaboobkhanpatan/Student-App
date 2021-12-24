@@ -16,8 +16,7 @@ export default function CreateStudent() {
         state: null,
         country: null,
         isRegistrationOk: false
-    })
-    console.log(student);
+    })    
 
     function handleChange(event) {
         const id = event.target.id;

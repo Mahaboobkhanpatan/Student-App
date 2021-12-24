@@ -39,7 +39,9 @@ export default function Singin(props) {
         axios.post("http://localhost:5000/signin", { email: set.email, password: set.password })
         .then(result => {
             if (result.data.status) {
-                localStorage.setItem("SIGNIN", true);                
+                localStorage.setItem("SIGNIN", true);   
+                localStorage.setItem("SESSION_MINUTES", 15);             
+                localStorage.setItem("SESSION_SECONDS", 0);             
                 navigate("/student")
                 setField({ ...set, isLoginSuccess: isLoginSuccess })
             } else {

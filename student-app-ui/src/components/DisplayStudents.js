@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import UpdateStudent from './UpdateStudent';
 import CreateStudent from './CreateStudent';
 import { useNavigate } from 'react-router-dom';
+import Countdown from './Countdown';
+import Logout from './Logout';
 
 
 export default function DisplayStudents() {
@@ -40,6 +42,8 @@ export default function DisplayStudents() {
 
     return (
         <div>
+            <Countdown />
+            <Logout />
             <CreateStudent />
             <div >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" onClick={getStudents} height="20" fill="currentColor" class="bi bi-arrow-clockwise icon" viewBox="0 0 16 16">
