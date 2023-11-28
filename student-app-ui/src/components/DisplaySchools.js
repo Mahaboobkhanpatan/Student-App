@@ -12,7 +12,8 @@ export default function DisplaySchools() {
     let navigate = useNavigate();
 
     const [schools, setSchools] = useState([]);
-    const [dataFilter, setdataFilter] = useState(null);   
+    const [dataFilter, setdataFilter] = useState(null); 
+    const [search, setsearch] = useState("");  
 
     useEffect(() => {
 
@@ -47,6 +48,7 @@ export default function DisplaySchools() {
             <Logout />
             <CreateSchool />
             <div >
+                <input type="text" className='searchFilter' placeholder='filter schools' onChange={(event) =>{setsearch(event.target.value)}}/>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" onClick={getSchools} height="20" fill="currentColor" class="bi bi-arrow-clockwise icon" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
                     <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
@@ -68,7 +70,21 @@ export default function DisplaySchools() {
                 </thead>
                 <tbody>
                     {
-                        schools.map((data, index) => {
+                        schools.filter((value)=>{
+                            if(search==="")
+                            {return value}
+                            else if  (
+                                value.name.toLowerCase().includes(search.toLowerCase()) ||
+                                value.address.street.toLowerCase().includes(search.toLowerCase()) ||
+                                value.address.town.toLowerCase().includes(search.toLowerCase()) ||
+                                value.address.district.toLowerCase().includes(search.toLowerCase()) ||
+                                value.address.state.toLowerCase().includes(search.toLowerCase()) ||
+                                value.address.country.toLowerCase().includes(search.toLowerCase()) ||
+                                value.address.houseNo.toLowerCase().includes(search.toLowerCase())                           
+                            )
+                            {return value};
+                           
+                        }).map((data, index) => {
                             return (
                                 <tr key={index} className="rows">
                                     <td> <svg style={{float: "none"}} onClick={() => editSchool(data.id)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square icon" viewBox="0 0 16 16">

@@ -10,6 +10,7 @@ import Signin from './components/Signin';
 import Signup from './components/Signup';
 
 
+
 import {
   BrowserRouter as Router,
   Route,
@@ -38,6 +39,8 @@ function App() {
           <Route path='/signup' element={<Signup />} />
           <Route path='/' element={<Signin />} />
           <Route path='/*' element={<Signin />} />
+          <Route path='/Countdown' element={<Countdown />} />
+
         </Routes>
       </Router>
     </>

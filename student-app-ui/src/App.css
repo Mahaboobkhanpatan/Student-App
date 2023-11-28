@@ -137,3 +137,7 @@ td {
   align-items: center;
   position: absolute;
 }
+.searchFilter{
+  margin-left: 970px;
+  float: center;
+}
