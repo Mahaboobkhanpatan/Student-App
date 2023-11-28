@@ -34,7 +34,7 @@
           if (body.PASSWORD == result.PASSWORD) {
             res.send({ message: "SIGNIN SUCESSFULL" });
           } else {
-            res.send({ message: "EMAIL AND PASSWORD DOESN'T MATCHED" })
+            res.send({ message: "EMAIL AND PASSWORD DO NOT MATCHED" })
           }
         }
         else {
